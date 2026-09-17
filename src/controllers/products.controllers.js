@@ -1,68 +1,85 @@
+import { productModel } from "../models/products.models.js";
 
-export function getProducts(req,res){
+export async function getProducts(req, res) {
     try {
-        res.json({
+        const products = await productModel.find();
+
+        if (products.length == 0) {
+               return res.json({
+                ok: false,
+                msg: 'Products not founded'
+            })} 
+
+        return res.json({
             ok: true,
             msg: 'Products founded',
-            data: 'Products'
+            data: products
         })
-        
+
+
+
     } catch (error) {
-        res.json({
-            ok: true,
+        res.status(500).json({
+            ok: false,
             msg: 'server internal error'
         })
-        
+
     }
 }
 
-export function createProduct(req,res){
+export async function createProduct(req, res) {
     try {
+        const data = req.body;
+
+        const product = await productModel.create(data);
+
         res.json({
             ok: true,
             msg: 'product created',
-            data: 'Product'
+            data: product
         })
-        
+
     } catch (error) {
-        res.json({
-            ok: true,
+        res.status(500).json({
+            ok: false,
             msg: 'server internal error'
         })
-        
+
     }
 }
 
-export function deleteProduct(req,res){
+export function deleteProduct(req, res) {
     try {
+
+        
         res.json({
             ok: true,
             msg: 'Product deleted',
             data: 'Product'
         })
-        
+
     } catch (error) {
-        res.json({
-            ok: true,
+        res.status(500).json({
+            ok: false,
             msg: 'server internal error'
         })
-        
+
     }
 }
 
-export function updateProduct(req,res){
+export function updateProduct(req, res) {
     try {
         res.json({
             ok: true,
             msg: 'Product updated',
             data: 'Product'
         })
-        
+
     } catch (error) {
-        res.json({
-            ok: true,
+        res.status(500).json({
+            ok: false,
             msg: 'server internal error'
         })
-        
+
     }
 }
