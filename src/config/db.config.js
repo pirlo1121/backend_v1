@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
+import { env } from './env.config.js';
 
-const urlDB = 'mongodb://localhost:27017/store';
 
 export async function connectDB() {
 
     try {
-        await mongoose.connect(urlDB);
+        await mongoose.connect(env.dbUrl);
         console.log('Conectado xd')
         
     } catch (error) {
