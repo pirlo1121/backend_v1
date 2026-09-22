@@ -1,94 +1,61 @@
-import { userModel } from "../models/users.models.js";
+import { usersModel } from "../models/users.models.js";
+
+
+
 
 export async function getUsers(req, res) {
-    try {
 
-        const users = await userModel.find();
+    try {
+        const users = await usersModel.find();
 
         if (users.length == 0) {
-            return res.json({
+
+            return res.status(404).json({
                 ok: false,
-                msg: 'Users not founded'
-            })}
+                msg: 'Users Not found'
+            });
 
-        return res.json({
+        }
+
+        return res.status(200).json({
             ok: true,
-            msg: 'Users founded',
+            msg: 'Users found',
             data: users
-        })
+        });
 
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'server internal error'
-        })
-
-    }
-}
-
-export async function createUser(req, res) {
-    try {
-        const data = req.body;
-
-        const user = await userModel.create(data);
-        user.password = undefined;
-
-        res.json({
-            ok: true,
-            msg: 'User created',
-            data: user
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            ok: false,
-            msg: 'server internal error',
+            msg: 'Server error',
             error: error.message
         })
-
     }
+
 }
 
-export async function deleteUser(req, res) {
+export async function createUsers(req, res) {
+
     try {
-        const id = req.params.id;
 
-        const user = await userModel.findByIdAndDelete(id)
+        const data = req.body
+        const newUser = await usersModel.create(data);
 
-        res.json({
+        newUser.password = undefined
+
+        return res.status(201).json({
             ok: true,
-            msg: 'User deleted',
-            data: user
+            msg: 'user created',
+            data: newUser
         })
 
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'server internal error'
+            msg: 'Server error',
+            error: error.message
         })
-
     }
-}
 
-export async function updateUser(req, res) {
-    try {
-        // capturar el id
-        const id = req.params.id;
-        const data = req.body;
-
-        const user = await userModel.findByIdAndUpdate(id, data, {new: true});
-
-        res.json({
-            ok: true,
-            msg: 'User updated',
-            data: user
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            ok: false,
-            msg: 'server internal error'
-        })
-
-    }
 }
