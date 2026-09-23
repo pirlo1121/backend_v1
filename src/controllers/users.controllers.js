@@ -1,5 +1,5 @@
 import { usersModel } from "../models/users.models.js";
-
+import bcrypt from 'bcrypt'
 
 
 
@@ -39,7 +39,19 @@ export async function createUsers(req, res) {
     try {
 
         const data = req.body
+        // tener la contraseña
+
+        // generar el SALT
+        const SALT = await bcrypt.genSalt(10)
+
+        // generar el HASH
+        const hash = await bcrypt.hash(data.password , SALT)
+        console.log(data)
+
         const newUser = await usersModel.create(data);
+
+
+
 
         newUser.password = undefined
 
@@ -60,7 +72,6 @@ export async function createUsers(req, res) {
 
 }
 
-
 export async function updateUser(req, res) {
     try {
 
@@ -77,6 +88,33 @@ export async function updateUser(req, res) {
 
 
 
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Server error',
+            error: error.message
+        })
+    }
+}
+
+export async function login(req, res) {
+
+    try {
+        // email, password
+        const { email , password } = req.body;
+        // verificar el correo en la DB;
+
+        const userFound = await usersModel.findOne({email: email})
+    
+        if(!userFound){
+            return res.status(404).json({
+                ok: false,
+                msg: 'User not found'
+            })
+        }
+        
+        
     } catch (error) {
         console.log(error);
         res.status(500).json({

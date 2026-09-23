@@ -3,11 +3,11 @@ import productsRouter from './src/routes/products.routes.js';
 import usersRouter from './src/routes/users.routes.js';
 import { connectDB } from './src/config/db.config.js';
 import { env } from './src/config/env.config.js';
+import cookieParser from 'cookie-parser';
 const app = express();
 
 
 connectDB();
-
 
 app.use( express.json() );
 app.use(productsRouter);
@@ -22,7 +22,7 @@ app.use((req,res)=>{
 
 
 
-app.listen(env.port,()=>{
+app.listen(env.port ,()=>{
     console.log('server running on port 3000');
 })
 

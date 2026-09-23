@@ -6,9 +6,9 @@ export async function getProducts(req, res) {
         const products = await productModel.find();
 
         if (products.length == 0) {
-               return res.json({
+               return res.status(404).json({
                 ok: false,
-                msg: 'Products not founded'
+                msg: 'Products not found'
             })} 
 
         return res.json({
@@ -22,7 +22,8 @@ export async function getProducts(req, res) {
     } catch (error) {
         res.status(500).json({
             ok: false,
-            msg: 'server internal error'
+            msg: 'server internal error',
+            error: error.message
         })
 
     }
