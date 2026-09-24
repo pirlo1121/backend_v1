@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Password is required'],
-        match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ , 'Invalid password'],
+        match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,64}$/ , 'Invalid password'],
         select: false
     },
     role: {
