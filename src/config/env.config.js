@@ -7,4 +7,3 @@ export const env = {
     dbUrl: process.env.DBURL,
     jwt: process.env.JWT_SECRET
 }
-

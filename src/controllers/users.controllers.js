@@ -20,12 +20,20 @@ export async function getUserById(req, res) {
         return res.status(200).json({
             ok: true,
             msg: 'User found',
-            data: user
+            data: userFound
         })
 
 
         
-    }catch (error) {
+    } catch (error) {
+        // id con formato invalido
+        if (error.name === 'CastError') {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Invalid id'
+            })
+        }
+
         console.log(error);
         res.status(500).json({
             ok: false,
@@ -72,16 +80,6 @@ export async function createUsers(req, res) {
     try {
 
         const data = req.body
-        // tener la contraseña
-
-        // generar el SALT
-        const SALT = await bcrypt.genSalt(10)
-
-        // generar el HASH
-        const hash = await bcrypt.hash(data.password , SALT);
-
-        data.password = hash
-        console.log(data.password)
         const newUser = await usersModel.create(data);
         newUser.password = undefined
 
@@ -92,6 +90,23 @@ export async function createUsers(req, res) {
         })
 
     } catch (error) {
+        // errores de validacion del modelo
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Invalid data',
+                error: error.message
+            })
+        }
+
+        // email repetido (indice unique)
+        if (error.code === 11000) {
+            return res.status(409).json({
+                ok: false,
+                msg: 'Email already exists'
+            })
+        }
+
         console.log(error);
         res.status(500).json({
             ok: false,
@@ -110,6 +125,13 @@ export async function updateUser(req, res) {
 
         const user = await usersModel.findByIdAndUpdate(id , data , { new: true , runValidators: true })
 
+        if( !user ){
+            return res.status(404).json({
+                ok: false,
+                msg: 'User not found'
+            })
+        }
+
         return res.status(200).json({
             ok: true,
             msg: 'user updated',
@@ -119,6 +141,23 @@ export async function updateUser(req, res) {
 
 
     } catch (error) {
+        // errores de validacion o id con formato invalido
+        if (error.name === 'ValidationError' || error.name === 'CastError') {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Invalid data',
+                error: error.message
+            })
+        }
+
+        // email repetido (indice unique)
+        if (error.code === 11000) {
+            return res.status(409).json({
+                ok: false,
+                msg: 'Email already exists'
+            })
+        }
+
         console.log(error);
         res.status(500).json({
             ok: false,
@@ -134,6 +173,14 @@ export async function login(req, res) {
     try {
         // email, password
         const { email , password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Email and password are required'
+            })
+        }
+
         // verificar el correo en la DB;
 
         const userFound = await usersModel.findOne({email: email}).select('+password')
@@ -157,14 +204,33 @@ export async function login(req, res) {
         userFound.password = undefined;
 
         // crear token 
-        const token = jwt.sign({userFound} , env.jwt )
-
-
-        res.send(token)
-
+        const token = jwt.sign({userFound} , env.jwt , { expiresIn: '1h' })
 
         // crear un cookie y guardar el token
 
+        res.cookie('token', token , { httpOnly: true , maxAge: 60 * 60 * 1000 } );
+
+        return res.status(200).json({
+            ok: true,
+            msg: 'Login successful'
+        })
+
+
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Server error',
+            error: error.message
+        })
+    }
+}
+
+export async function logout(req,res) {
+    try {
+        res.clearCookie('token');
+        return res.status(200).json({ ok: true, msg: 'logged out' });
 
         
     } catch (error) {

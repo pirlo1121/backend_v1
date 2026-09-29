@@ -10,6 +10,7 @@ const app = express();
 connectDB();
 
 app.use( express.json() );
+app.use( cookieParser() )
 app.use(productsRouter);
 app.use(usersRouter);
 
@@ -23,6 +24,6 @@ app.use((req,res)=>{
 
 
 app.listen(env.port ,()=>{
-    console.log('server running on port 3000');
+    console.log(`server running on port ${env.port}`);
 })
 
