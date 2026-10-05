@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { env } from '../config/env.config.js';
 
-
 export function auth(req, res, next){
     try {
         const { token } = req.cookies;
@@ -30,5 +29,22 @@ export function auth(req, res, next){
     }
 }
 
+export function isAdmin(req, res, next){
+    // validar que exista el usuario (lo guarda el middleware auth)
+    if(!req.user){
+        return res.status(401).json({
+            ok: false,
+            msg: 'Unauthorized'
+        });
+    }
 
+    // validar que el rol sea admin
+    if(req.user.role !== 'admin'){
+        return res.status(403).json({
+            ok: false,
+            msg: 'Access denied: admin only'
+        });
+    }
 
+    next();
+}
