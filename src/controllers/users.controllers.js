@@ -38,8 +38,7 @@ export async function getUserById(req, res) {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Server error',
-            error: error.message
+            msg: 'Server error'
         })
     }
     
@@ -69,8 +68,7 @@ export async function getUsers(req, res) {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Server error',
-            error: error.message
+            msg: 'Server error'
         })
     }
 
@@ -95,8 +93,7 @@ export async function createUsers(req, res) {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Server error',
-            error: error.message
+            msg: 'Server error'
         })
     }
 
@@ -130,8 +127,7 @@ export async function updateUser(req, res) {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Server error',
-            error: error.message
+            msg: 'Server error'
         })
     }
 }
@@ -146,9 +142,9 @@ export async function login(req, res) {
         const userFound = await usersModel.findOne({email: email}).select('+password')
     
         if(!userFound){
-            return res.status(404).json({
+            return res.status(401).json({
                 ok: false,
-                msg: 'User not found'
+                msg: 'Invalid credentials'
             })
         };
 
@@ -157,7 +153,7 @@ export async function login(req, res) {
         if (!isMatch) {
             return res.status(401).json({
                 ok: false,
-                msg: 'Invalid Password'
+                msg: 'Invalid credentials'
             })
         } 
 
@@ -181,8 +177,7 @@ export async function login(req, res) {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Server error',
-            error: error.message
+            msg: 'Server error'
         })
     }
 }
@@ -197,8 +192,7 @@ export async function logout(req,res) {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Server error',
-            error: error.message
+            msg: 'Server error'
         })
     }
 }
