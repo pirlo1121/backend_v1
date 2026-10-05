@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { productModel } from "../models/products.models.js";
 
 export async function getProducts(req, res) {
@@ -44,15 +45,6 @@ export async function createProduct(req, res) {
         })
 
     } catch (error) {
-        // errores de validacion del modelo
-        if (error.name === 'ValidationError') {
-            return res.status(400).json({
-                ok: false,
-                msg: 'Invalid data',
-                error: error.message
-            })
-        }
-
         console.log(error);
         res.status(500).json({
             ok: false,
@@ -66,6 +58,13 @@ export async function createProduct(req, res) {
 export async function deleteProduct(req, res) {
     try {
         const id = req.params.id;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(403).json({
+                ok: false,
+                msg: 'ID NOT VALID'
+            });
+        }
 
         const product = await productModel.findByIdAndDelete(id)
 
@@ -83,15 +82,6 @@ export async function deleteProduct(req, res) {
         })
 
     } catch (error) {
-        // id con formato invalido
-        if (error.name === 'CastError') {
-            return res.status(400).json({
-                ok: false,
-                msg: 'Invalid id'
-            })
-        }
-
-        console.log(error);
         res.status(500).json({
             ok: false,
             msg: 'Server error',
@@ -106,6 +96,13 @@ export async function updateProduct(req, res) {
         // capturar el id
         const id = req.params.id;
         const data = req.body;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(403).json({
+                ok: false,
+                msg: 'ID NOT VALID'
+            });
+        }
 
         const product = await productModel.findByIdAndUpdate(id, data, { new: true, runValidators: true });
 
@@ -123,15 +120,6 @@ export async function updateProduct(req, res) {
         })
 
     } catch (error) {
-        // errores de validacion o id con formato invalido
-        if (error.name === 'ValidationError' || error.name === 'CastError') {
-            return res.status(400).json({
-                ok: false,
-                msg: 'Invalid data',
-                error: error.message
-            })
-        }
-
         console.log(error);
         res.status(500).json({
             ok: false,

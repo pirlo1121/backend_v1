@@ -2,11 +2,19 @@ import { usersModel } from "../models/users.models.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { env } from "../config/env.config.js";
+import mongoose from "mongoose";
 
 export async function getUserById(req, res) {
 
     try {
         const id = req.params.id;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(403).json({
+                ok: false,
+                msg: 'ID NOT VALID'
+            });
+        }
 
         const userFound = await usersModel.findById(id);
 
@@ -26,13 +34,6 @@ export async function getUserById(req, res) {
 
         
     } catch (error) {
-        // id con formato invalido
-        if (error.name === 'CastError') {
-            return res.status(400).json({
-                ok: false,
-                msg: 'Invalid id'
-            })
-        }
 
         console.log(error);
         res.status(500).json({
@@ -90,22 +91,6 @@ export async function createUsers(req, res) {
         })
 
     } catch (error) {
-        // errores de validacion del modelo
-        if (error.name === 'ValidationError') {
-            return res.status(400).json({
-                ok: false,
-                msg: 'Invalid data',
-                error: error.message
-            })
-        }
-
-        // email repetido (indice unique)
-        if (error.code === 11000) {
-            return res.status(409).json({
-                ok: false,
-                msg: 'Email already exists'
-            })
-        }
 
         console.log(error);
         res.status(500).json({
@@ -141,22 +126,6 @@ export async function updateUser(req, res) {
 
 
     } catch (error) {
-        // errores de validacion o id con formato invalido
-        if (error.name === 'ValidationError' || error.name === 'CastError') {
-            return res.status(400).json({
-                ok: false,
-                msg: 'Invalid data',
-                error: error.message
-            })
-        }
-
-        // email repetido (indice unique)
-        if (error.code === 11000) {
-            return res.status(409).json({
-                ok: false,
-                msg: 'Email already exists'
-            })
-        }
 
         console.log(error);
         res.status(500).json({
@@ -173,15 +142,6 @@ export async function login(req, res) {
     try {
         // email, password
         const { email , password } = req.body;
-
-        if (!email || !password) {
-            return res.status(400).json({
-                ok: false,
-                msg: 'Email and password are required'
-            })
-        }
-
-        // verificar el correo en la DB;
 
         const userFound = await usersModel.findOne({email: email}).select('+password')
     
@@ -208,7 +168,7 @@ export async function login(req, res) {
 
         // crear un cookie y guardar el token
 
-        res.cookie('token', token , { httpOnly: true , maxAge: 60 * 60 * 1000 } );
+        res.cookie('token', token);
 
         return res.status(200).json({
             ok: true,
