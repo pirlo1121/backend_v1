@@ -71,7 +71,6 @@ export async function getUsers(req, res) {
             msg: 'Server error'
         })
     }
-
 }
 
 export async function createUsers(req, res) {
@@ -133,6 +132,7 @@ export async function updateUser(req, res) {
 }
 
 
+
 export async function login(req, res) {
 
     try {
@@ -160,7 +160,7 @@ export async function login(req, res) {
         userFound.password = undefined;
 
         // crear token 
-        const token = jwt.sign({userFound} , env.jwt , { expiresIn: '1h' })
+        const token = jwt.sign({userFound} , env.jwt , { expiresIn: '1h' });
 
         // crear un cookie y guardar el token
 

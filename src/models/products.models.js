@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 // crear Schema de productos
 const productSchema = mongoose.Schema({
-
+// multer
     name: {
         type: String,
         required: [true, 'Name is required'],
@@ -19,8 +19,11 @@ const productSchema = mongoose.Schema({
         type: String,
         trim: true,
         maxLength: [500, 'Description must have at most 500 characters']
+    },
+    imagen: {
+        type: String,
+        required: true
     }
-
 });
 
 // crear Modelo

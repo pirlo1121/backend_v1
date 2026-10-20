@@ -3,10 +3,10 @@ import { createProduct, deleteProduct, getProducts, updateProduct } from '../con
 import { auth } from '../middlewares/auth.middleware.js';
 const productsRouter = express.Router();
 
-productsRouter.get('/products', auth, getProducts)
-productsRouter.post('/products', auth, createProduct)
-productsRouter.delete('/products/:id', auth, deleteProduct)
-productsRouter.patch('/products/:id', auth, updateProduct)
+productsRouter.get('/products',  getProducts) 
+productsRouter.post('/products' , createProduct)
+productsRouter.delete('/products/:id', deleteProduct)
+productsRouter.patch('/products/:id', updateProduct)
 
 
-export default productsRouter
+export default productsRouter;

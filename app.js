@@ -4,11 +4,12 @@ import usersRouter from './src/routes/users.routes.js';
 import { connectDB } from './src/config/db.config.js';
 import { env } from './src/config/env.config.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 const app = express();
 
 
 connectDB();
-
+app.use( cors( {origin: ['http://localhost:4200'], credentials: true } ) );
 app.use( express.json() );
 app.use( cookieParser() )
 
@@ -22,9 +23,9 @@ app.use((req,res)=>{
 })
 
 
-
-
 app.listen(env.port ,()=>{
     console.log(`server running on port ${env.port}`);
 })
+
+
 
