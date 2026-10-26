@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch app.js"
+    "dev": "node --watch app.js",
+    "seed:products": "node src/seeders/products.seeder.js",
+    "seed:users": "node src/seeders/users.seeder.js"
   },
   "keywords": [],
   "author": "",

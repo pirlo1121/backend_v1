@@ -4,7 +4,7 @@ import { productModel } from "../models/products.models.js";
 export async function getProducts(req, res) {
     try {
 
-        const products = await productModel.find();
+        const products = await productModel.find()
 
         if (products.length == 0) {
             return res.status(404).json({
@@ -20,6 +20,42 @@ export async function getProducts(req, res) {
         })
 
 
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Server error'
+        })
+
+    }
+}
+
+export async function getOneProductById(req, res) {
+    try {
+        const id = req.params.id;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(403).json({
+                ok: false,
+                msg: 'ID NOT VALID'
+            });
+        }
+
+        const product = await productModel.findById(id)
+
+        if (!product) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Product not found'
+            })
+        }
+
+        return res.status(200).json({
+            ok: true,
+            msg: 'Product found',
+            data: product
+        })
 
     } catch (error) {
         console.log(error);

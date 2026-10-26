@@ -51,7 +51,7 @@ export async function getUsers(req, res) {
 
         if (users.length == 0) {
 
-            return res.status(404).json({
+            return res.status(200).json({
                 ok: false,
                 msg: 'Users Not found'
             });
