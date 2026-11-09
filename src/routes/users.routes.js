@@ -7,6 +7,6 @@ usersRouter.get('/users/:id', getUserById);
 usersRouter.post('/users', createUsers);
 usersRouter.patch('/users/:id', updateUser);
 usersRouter.post('/login', login);
-usersRouter.post('/logout', logout)
+usersRouter.post('/logout', logout);
 
-export default usersRouter
+export default usersRouter ;

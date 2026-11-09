@@ -11,7 +11,7 @@ const app = express();
 connectDB();
 app.use( cors( {origin: ['http://localhost:4200'], credentials: true } ) );
 app.use( express.json() );
-app.use( cookieParser() )
+app.use( cookieParser() );
 
 app.use(productsRouter);
 app.use(usersRouter);

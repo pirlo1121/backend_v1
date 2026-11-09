@@ -10,4 +10,7 @@ productsRouter.delete('/products/:id', deleteProduct)
 productsRouter.patch('/products/:id', updateProduct)
 
 
+
 export default productsRouter;
+
+// MCP 
