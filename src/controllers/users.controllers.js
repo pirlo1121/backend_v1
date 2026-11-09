@@ -10,7 +10,7 @@ export async function getUserById(req, res) {
         const id = req.params.id;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(403).json({
+            return res.status(400).json({
                 ok: false,
                 msg: 'ID NOT VALID'
             });
@@ -51,7 +51,7 @@ export async function getUsers(req, res) {
 
         if (users.length == 0) {
 
-            return res.status(200).json({
+            return res.status(404).json({
                 ok: false,
                 msg: 'Users Not found'
             });
@@ -78,6 +78,19 @@ export async function createUsers(req, res) {
     try {
 
         const data = req.body
+
+        // nadie se puede registrar como admin desde el formulario
+        data.role = 'user';
+
+        // validar que el email no este registrado
+        const emailExists = await usersModel.findOne({ email: data.email });
+        if (emailExists) {
+            return res.status(409).json({
+                ok: false,
+                msg: 'Email already registered'
+            })
+        }
+
         const newUser = await usersModel.create(data);
         newUser.password = undefined
 
@@ -164,11 +177,14 @@ export async function login(req, res) {
 
         // crear un cookie y guardar el token
 
-        res.cookie('token', token);
+        // httpOnly: el javascript del navegador no puede leer la cookie (mas seguro)
+        res.cookie('token', token, { httpOnly: true });
 
+        // devolvemos el usuario (sin password) para que el front sepa quien entro y su rol
         return res.status(200).json({
             ok: true,
-            msg: 'Login successful'
+            msg: 'Login successful',
+            data: userFound
         })
 
 

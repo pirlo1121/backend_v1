@@ -36,7 +36,7 @@ export async function getOneProductById(req, res) {
         const id = req.params.id;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(403).json({
+            return res.status(400).json({
                 ok: false,
                 msg: 'ID NOT VALID'
             });
@@ -94,7 +94,7 @@ export async function deleteProduct(req, res) {
         const id = req.params.id;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(403).json({
+            return res.status(400).json({
                 ok: false,
                 msg: 'ID NOT VALID'
             });
@@ -116,6 +116,7 @@ export async function deleteProduct(req, res) {
         })
 
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             ok: false,
             msg: 'Server error'
@@ -131,7 +132,7 @@ export async function updateProduct(req, res) {
         const data = req.body;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(403).json({
+            return res.status(400).json({
                 ok: false,
                 msg: 'ID NOT VALID'
             });

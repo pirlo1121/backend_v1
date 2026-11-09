@@ -1,16 +1,17 @@
 import express from 'express';
 import { createProduct, deleteProduct, getOneProductById, getProducts, updateProduct } from '../controllers/products.controllers.js';
-import { auth } from '../middlewares/auth.middleware.js';
+import { auth, isAdmin } from '../middlewares/auth.middleware.js';
 const productsRouter = express.Router();
 
+// rutas publicas: cualquiera puede ver los productos
 productsRouter.get('/products',  getProducts)
 productsRouter.get('/products/:id', getOneProductById)
-productsRouter.post('/products' , createProduct)
-productsRouter.delete('/products/:id', deleteProduct)
-productsRouter.patch('/products/:id', updateProduct)
+
+// rutas privadas: primero auth (¿hay token?) y luego isAdmin (¿es admin?)
+productsRouter.post('/products' , auth, isAdmin, createProduct)
+productsRouter.delete('/products/:id', auth, isAdmin, deleteProduct)
+productsRouter.patch('/products/:id', auth, isAdmin, updateProduct)
 
 
 
 export default productsRouter;
-
-// MCP 
