@@ -4,64 +4,64 @@ import { productModel } from "../models/products.models.js";
 
 const products = [
     {
-        name: 'Laptop Lenovo IdeaPad',
-        price: 2499.99,
-        description: 'Laptop con procesador Intel Core i5, 16GB RAM y 512GB SSD',
-        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Lenovo_IdeaPad_Flex14_laptop.jpg/960px-Lenovo_IdeaPad_Flex14_laptop.jpg'
+        name: 'Golden Retriever',
+        price: 1200.0,
+        description: 'Perro de raza grande, originario de Escocia. Amigable, inteligente y muy paciente con niños. Esperanza de vida de 10 a 12 años y peso de 25 a 34 kg.',
+        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Golden_Retriever_Dukedestiny01_drvd.jpg/960px-Golden_Retriever_Dukedestiny01_drvd.jpg'
     },
     {
-        name: 'Mouse Logitech MX Master',
-        price: 89.99,
-        description: 'Mouse inalámbrico ergonómico con sensor de alta precisión',
-        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Logitech_MX_Master_3S_HS01.jpg/960px-Logitech_MX_Master_3S_HS01.jpg'
+        name: 'Labrador Retriever',
+        price: 1000.0,
+        description: 'Perro de raza grande originario de Terranova (Canadá). Leal, enérgico y fácil de entrenar; muy usado como perro guía. Vive de 10 a 12 años y pesa de 25 a 36 kg.',
+        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Labrador_on_Quantock_%282175262184%29.jpg/960px-Labrador_on_Quantock_%282175262184%29.jpg'
     },
     {
-        name: 'Teclado Mecánico Redragon',
-        price: 129.5,
-        description: 'Teclado mecánico RGB con switches rojos y reposamuñecas',
-        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Redragon_-_52795210242.jpg/960px-Redragon_-_52795210242.jpg'
+        name: 'Pastor Alemán',
+        price: 1100.0,
+        description: 'Perro de trabajo originario de Alemania. Valiente, protector y muy inteligente; usado en labores policiales y de rescate. Vive de 9 a 13 años y pesa de 22 a 40 kg.',
+        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/German_Shepherd_-_DSC_0346_%2810096362833%29.jpg/960px-German_Shepherd_-_DSC_0346_%2810096362833%29.jpg'
     },
     {
-        name: 'Monitor Samsung 24',
-        price: 549.0,
-        description: 'Monitor LED Full HD de 24 pulgadas con panel IPS',
-        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/HK_WC_%E7%81%A3%E4%BB%94_Wan_Chai_%E6%9F%AF%E5%B8%83%E9%80%A3%E9%81%93_2_O%27Brien_Street_%E8%BB%92%E5%B0%BC%E8%A9%A9%E9%81%93_Hennessy_Road_%E7%81%A3%E4%BB%94%E9%9B%BB%E8%85%A6%E5%9F%8E_Wan_Chai_Computer_Centre_%E9%87%91%E9%9B%BB%E8%85%A6%E7%94%A8%E5%93%81_Golden_Computer_Accessories_Samsung_brand_monitor_paper_box_June_2021_SS2_01.jpg/960px-thumbnail.jpg'
+        name: 'Bulldog Francés',
+        price: 2500.0,
+        description: 'Perro de compañía pequeño originario de Francia, reconocible por sus orejas de murciélago. Tranquilo y cariñoso, ideal para apartamentos. Vive de 10 a 12 años y pesa de 8 a 14 kg.',
+        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/2008-07-28_Dog_at_Frolick_Field.jpg/960px-2008-07-28_Dog_at_Frolick_Field.jpg'
     },
     {
-        name: 'Audífonos Sony WH-1000XM5',
-        price: 399.99,
-        description: 'Audífonos inalámbricos con cancelación activa de ruido',
-        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/Headphones_Sony_super-light.jpg/960px-Headphones_Sony_super-light.jpg'
+        name: 'Beagle',
+        price: 800.0,
+        description: 'Sabueso de tamaño mediano originario de Inglaterra con un olfato excepcional. Alegre, curioso y sociable. Vive de 12 a 15 años y pesa de 9 a 11 kg.',
+        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Beagle_600.jpg/960px-Beagle_600.jpg'
     },
     {
-        name: 'Webcam Logitech C920',
-        price: 159.9,
-        description: 'Cámara web Full HD 1080p con micrófonos estéreo',
-        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Webcam_%28Logitech_c922%29.jpg/960px-Webcam_%28Logitech_c922%29.jpg'
+        name: 'Husky Siberiano',
+        price: 1300.0,
+        description: 'Perro de trineo originario de Siberia, de ojos azules o bicolores y doble capa de pelo. Activo, independiente y amigable. Vive de 12 a 14 años y pesa de 16 a 27 kg.',
+        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Husky_L.jpg/960px-Husky_L.jpg'
     },
     {
-        name: 'Disco SSD Kingston 1TB',
-        price: 219.0,
-        description: 'Unidad SSD NVMe de 1TB con lectura de hasta 3500 MB/s',
-        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/2023_Dysk_SSD_Kingston_NV2_2TB.jpg/960px-2023_Dysk_SSD_Kingston_NV2_2TB.jpg'
+        name: 'Gato Persa',
+        price: 900.0,
+        description: 'Gato de pelo largo y cara chata originario de Persia (Irán). Tranquilo, dócil y casero; requiere cepillado diario. Vive de 12 a 17 años y pesa de 3 a 6 kg.',
+        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Persialainen.jpg/960px-Persialainen.jpg'
     },
     {
-        name: 'Memoria RAM Corsair 16GB',
-        price: 189.99,
-        description: 'Memoria RAM DDR4 de 16GB a 3200MHz',
-        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/2%2A8Go_DDR4_Corsair_-_2018-05-08.jpg/960px-2%2A8Go_DDR4_Corsair_-_2018-05-08.jpg'
+        name: 'Gato Siamés',
+        price: 700.0,
+        description: 'Gato originario de Tailandia, de cuerpo esbelto, ojos azules y pelaje con puntos oscuros. Muy vocal, sociable y apegado a su familia. Vive de 15 a 20 años y pesa de 3 a 5 kg.',
+        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Siamese_cat_Vaillante.JPG/960px-Siamese_cat_Vaillante.JPG'
     },
     {
-        name: 'Silla Gamer Ergonómica',
-        price: 799.0,
-        description: 'Silla gamer reclinable con soporte lumbar y reposabrazos',
-        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Gaming_chair.jpg/960px-Gaming_chair.jpg'
+        name: 'Maine Coon',
+        price: 1500.0,
+        description: 'Una de las razas de gato más grandes, originaria de Maine (EE. UU.). Pelaje semilargo y orejas con penachos; conocido como «gigante gentil». Vive de 12 a 15 años y pesa de 5 a 11 kg.',
+        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/M%C3%A2le_Black_Silver_Blotched_Tabby.jpeg/960px-M%C3%A2le_Black_Silver_Blotched_Tabby.jpeg'
     },
     {
-        name: 'Impresora HP DeskJet',
-        price: 349.9,
-        description: 'Impresora multifuncional con WiFi y escáner integrado',
-        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/HP_DeskJet_2630_All-in-One_Printer.jpg/960px-HP_DeskJet_2630_All-in-One_Printer.jpg'
+        name: 'British Shorthair',
+        price: 1200.0,
+        description: 'Gato originario de Gran Bretaña, de cuerpo robusto, cara redonda y pelaje denso, típicamente azul grisáceo. Calmado e independiente. Vive de 12 a 20 años y pesa de 4 a 8 kg.',
+        imagen: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Mystica_from_British_Empire_Cattery.jpg/960px-Mystica_from_British_Empire_Cattery.jpg'
     }
 ];
 
@@ -69,22 +69,13 @@ async function seedProducts() {
     try {
         await connectDB();
 
-        let created = 0;
+        const { deletedCount } = await productModel.deleteMany({});
+        console.log(`Productos eliminados: ${deletedCount}`);
 
-        for (const data of products) {
-            const exists = await productModel.exists({ name: data.name });
+        const created = await productModel.insertMany(products);
+        created.forEach((product) => console.log(`Producto creado: ${product.name}`));
 
-            if (exists) {
-                console.log(`Producto ya existe: ${data.name}`);
-                continue;
-            }
-
-            await productModel.create(data);
-            created++;
-            console.log(`Producto creado: ${data.name}`);
-        }
-
-        console.log(`Seeder de productos finalizado. Creados: ${created}`);
+        console.log(`Seeder de productos finalizado. Creados: ${created.length}`);
     } catch (error) {
         console.log(error);
         process.exitCode = 1;
